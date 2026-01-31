@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Solar Irradiance Prediction</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: 'Poppins', Arial, sans-serif;
+    color: white;
+}
+
+/* --- ADDED SIDEBAR STYLES --- */
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.95);
+    overflow-x: hidden;
+    transition: 0.4s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 15px 32px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #ffeb3b;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    font-size: 36px;
+    cursor: pointer;
+}
+
+.menu-icon {
+    font-size: 30px;
+    cursor: pointer;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 999;
+    color: #ffeb3b;
+    background: rgba(0,0,0,0.3);
+    padding: 5px 15px;
+    border-radius: 10px;
+}
+
+.page {
+    display: none;
+    min-height: 100vh;
+    padding: 40px 20px;
+}
+.page.active { display: block; }
+
+
+h1, h2 { text-align: center; }
+p { text-align: center; }
+
+button {
+    width: 60%;
+    display: block;
+    padding: 12px;
+    margin: 12px auto;
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    background: linear-gradient(135deg,#ffeb3b,#ff9800);
+    color: black;
+}
+
+input, select {
+    width: 60%;
+    display: block;
+    padding: 10px;
+    margin: 10px auto;
+    border-radius: 10px;
+    border: none;
+}
+
+.status {
+    margin: 15px;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.result {
+    margin-top: 15px;
+    padding-left: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    text-align: left;
+    border-left: 4px;
+    font-size: 14px;
+}
+
+
+/* BACKGROUNDS */
+#home { background: linear-gradient(135deg, #ff7e5f, #feb47b); }
+#about { background: linear-gradient(135deg, #667eea, #764ba2); }
+#locations { background: linear-gradient(135deg, #667eea, #764ba2); }
+#predict { background: linear-gradient(135deg, #667eea, #764ba2); }
+#resultPage { background: linear-gradient(135deg, #667eea, #764ba2);}
+
+/* ADDED BACKGROUNDS FOR NEW PAGES */
+#help { background: linear-gradient(135deg, #667eea, #764ba2); }
+#howTo { background: linear-gradient(135deg, #667eea, #764ba2); }
+
+</style>
+</head>
+
+<body>
+
+<div class="menu-icon" onclick="openNav()">&#9776;</div>
+
+<div id="mySidenav" class="sidenav">
+  <span class="closebtn" onclick="closeNav()">&times;</span>
+  <a href="#" onclick="navTo('home')">Home</a>
+  <a href="#" onclick="navTo('about')">About</a>
+  <a href="#" onclick="navTo('help')">Help</a>
+  <a href="#" onclick="navTo('howTo')">How to Use</a>
+
+</div>
+
+
+
+<div class="page active" id="home">
+    <div class="card">
+        <h1>🌞 Solar Irradiance Prediction</h1>
+        <p>Frontend Simulation for Solar Energy Forecasting</p>
+        <button onclick="showPage('locations')">Start Project</button>
+        <button onclick="showPage('about')">About Us</button>
+    </div>
+</div>
+
+<div class="page" id="about">
+    <div class="card">
+        <h2>🌞 About the Project</h2>
+        
+        <div class="custom-center">
+            <div style="margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 20px;">
+                
+                <h3 style="color: #ffeb3b;">🎯 The Concept</h3>
+                <p>Solar Irradiance Prediction is a digital forecast of the Sun's potential. It calculates the density of solar radiation reaching the Earth’s surface by analyzing atmospheric variables such as temperature, humidity, and pressure.</p>
+                
+                <h3 style="color: #ffeb3b;">🚀 The Purpose</h3>
+                <p>As we shift toward renewable energy, the "unpredictability" of the sun is a challenge. This tool bridge that gap by allowing energy providers to anticipate power surges or drops, ensuring that the electricity grid remains stable even when clouds pass over.</p>
+                
+                <h3 style="color: #ffeb3b;">💡 Why It Matters</h3>
+                <p>Checking these predictions isn't just for scientists—it's for sustainability. By knowing when solar energy is at its peak, we can synchronize our heaviest energy consumption with the sun’s strongest hours, drastically reducing carbon footprints and electricity costs.</p>
+                <h3 style="color: #ffeb3b;">📖 In Simple Terms</h3>
+                <p>Just like a weather app tells you if it will rain, <b>Solar Irradiance Prediction</b> tells you how much "fuel" the sun will provide to solar panels. It predicts the strength of the sunlight before it even hits the ground.</p>
+                
+                <h3 style="color: #ffeb3b;">⚡ What is the Use?</h3>
+                <p>Think of it as a <b>battery manager</b> for a whole city. If we know the sun will be very strong at 2:00 PM, we can save other fuels (like coal or gas) and use the free energy from the sun instead. It helps prevent power cuts and saves money.</p>
+                
+                <h3 style="color: #ffeb3b;">🔍 Why should you check it?</h3>
+                <p>If you have solar panels at home, checking this helps you decide the best time to run heavy machines like your washing machine or AC. By using power when the sun is strongest, you use <b>100% clean energy</b> and pay less on your electricity bill.</p>
+            </div>
+
+            <h2 style="text-align: center;">👩‍🎓 Research Team </h2>
+            <ul style="text-align: center; list-style: none; padding: 0;">
+                <li><b>B. Vandhana</b> (222U1A3704)</li>
+                <li><b>K. J. Subhasri</b> (222U1A3724)</li>
+                <li><b>N. Prasanthi</b> (222U1A3737)</li>
+                <li><b>P. Saranya</b> (222U1A3744)</li>
+                <li><b>P. Kavyanjali</b> (222U1A3746)</li>
+            </ul>
+        </div>
+        
+        <button onclick="showPage('home')">⬅ Back to Dashboard</button>
+    </div>
+</div>
+<div class="page" id="help">
+    <div class="card">
+        <h2>❓ Help</h2>
+        <p>This application simulates solar energy forecasting based on location and time. For support, contact your project administrator.</p>
+        <button onclick="showPage('home')">⬅ Back</button>
+    </div>
+</div>
+
+<div class="page" id="howTo">
+    <div class="card">
+        <h2>📖 How to Use</h2>
+        <p>1. Select a Location.<br>2. Choose a specific Area.<br>3. Set the Time.<br>4. Click Predict to see the results.</p>
+        <button onclick="showPage('home')">⬅ Back</button>
+    </div>
+</div>
+
+<div class="page" id="locations">
+    <div class="card">
+        <h2>Select Location</h2>
+
+        <div class="locPage">
+            <button onclick="openPredict('Nellore')">Nellore</button>
+            <button onclick="openPredict('Chennai')">Chennai</button>
+            <button onclick="openPredict('Hyderabad')">Hyderabad</button>
+            <button onclick="openPredict('Bangalore')">Bangalore</button>
+            <button onclick="openPredict('Vijayawada')">Vijayawada</button>
+        </div>
+
+        <div class="locPage">
+            <button onclick="openPredict('Visakhapatnam')">Visakhapatnam</button>
+            <button onclick="openPredict('Tirupati')">Tirupati</button>
+            <button onclick="openPredict('Guntur')">Guntur</button>
+            <button onclick="openPredict('Kurnool')">Kurnool</button>
+            <button onclick="openPredict('Rajahmundry')">Rajahmundry</button>
+        </div>
+
+        <button onclick="prevLoc()">◀ Previous</button>
+        <button onclick="nextLoc()">Next ▶</button>
+        <button onclick="showPage('home')">⬅ Back</button>
+    </div>
+</div>
+
+<div class="page" id="predict">
+    <div class="card">
+        <h2 id="locTitle"></h2>
+        <select id="area">
+            <option value="">Select Area</option>
+        </select>
+        <input type="time" id="time" value="12:00">
+        <button onclick="predictAndRedirect()">Predict Solar Irradiance</button>
+        <div class="status" id="status"></div>
+        <div class="result" id="result"></div>
+        <button onclick="showPage('locations')">⬅ Change Location</button>
+    </div>
+</div>
+
+<div class="page" id="resultPage">
+    <div class="card">
+        <h2>📊 Prediction Result</h2>
+        <div class="result" id="finalResult"></div>
+        <button onclick="showPage('predict')">⬅ Back</button>
+        <button onclick="showPage('home')">🏠 Home</button>
+    </div>
+</div>
+
+<script>
+/* ADDED SIDEBAR FUNCTIONS */
+function openNav() { document.getElementById("mySidenav").style.width = "250px"; }
+function closeNav() { document.getElementById("mySidenav").style.width = "0"; }
+function navTo(pageId) { closeNav(); showPage(pageId); }
+
+function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+}
+
+let currentLocation = "";
+let locIndex = 0;
+const locPages = document.getElementsByClassName("locPage");
+
+const areaData = {
+    Nellore: ["Stonehousepet", "Vedayapalem", "Magunta Layout", "Balaji Nagar"],
+    Chennai: ["T Nagar", "Anna Nagar", "Velachery", "Tambaram"],
+    Hyderabad: ["Gachibowli", "Madhapur", "Kukatpally", "Ameerpet"],
+    Bangalore: ["Whitefield", "Indiranagar", "Electronic City", "Yelahanka"],
+    Vijayawada: ["Benz Circle", "Patamata", "Poranki", "Governorpet"],
+    Visakhapatnam: ["MVP Colony", "Gajuwaka", "Seethammadhara", "Rushikonda"],
+    Tirupati: ["Mangalam", "RC Road", "Renigunta"],
+    Guntur: ["Brodipet", "Lakshmipuram", "Pattabhipuram"],
+    Kurnool: ["Ballary Chowk", "Ashok Nagar", "Orvakal"],
+    Rajahmundry: ["Danavaipeta", "Alcot Gardens", "Dowleswaram"]
+};
+
+function openPredict(loc) {
+    currentLocation = loc;
+    document.getElementById("locTitle").innerText = "📍 " + loc;
+    const areaSelect = document.getElementById("area");
+    areaSelect.innerHTML = '<option value="">Select Area</option>';
+    if (areaData[loc]) {
+        areaData[loc].forEach(a => {
+            const opt = document.createElement("option");
+            opt.value = a;
+            opt.textContent = a;
+            areaSelect.appendChild(opt);
+        });
+    }
+    document.getElementById("status").innerHTML = "";
+    document.getElementById("result").innerHTML = "";
+    showPage('predict');
+}
+
+function updateLocPages() {
+    for (let i = 0; i < locPages.length; i++) {
+        locPages[i].style.display = (i === locIndex) ? "block" : "none";
+    }
+}
+updateLocPages();
+
+function nextLoc() { if (locIndex < locPages.length - 1) { locIndex++; updateLocPages(); } }
+function prevLoc() { if (locIndex > 0) { locIndex--; updateLocPages(); } }
+
+function rand(min, max) { return Math.random() * (max - min) + min; }
+function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+async function predict() {
+    const status = document.getElementById("status");
+    const result = document.getElementById("result");
+    status.innerHTML = "";
+    result.innerHTML = "";
+    const hour = parseInt(document.getElementById("time").value.split(":")[0]);
+    status.innerHTML += "🌐 Fetching weather data for " + currentLocation + "...<br>";
+    await wait(600);
+    const tempC = rand(26, 30);
+    const humidity = rand(40, 75);
+    const pressure = rand(1005, 1018);
+    status.innerHTML += "⚙️ Processing atmospheric parameters...<br>";
+    await wait(600);
+    status.innerHTML += "🤖 Running solar irradiance model...<br>";
+    await wait(700);
+    let irradiance;
+    if (hour >= 6 && hour < 9) irradiance = rand(200, 450);
+    else if (hour < 12) irradiance = rand(500, 750);
+    else if (hour < 15) irradiance = rand(750, 1000);
+    else if (hour < 17) irradiance = rand(400, 650);
+    else if (hour < 18) irradiance = rand(200, 350);
+    else irradiance = rand(10, 60);
+    const tempF = (tempC * 9/5) + 32;
+    const pressureMmHg = pressure * 0.75006;
+    status.innerHTML += "✅ Prediction completed<br>";
+    result.innerHTML = `
+        <b>Predicted Solar Irradiance</b><br>
+        <span style="font-size:20px;color:#ffeb3b;">${irradiance.toFixed(2)} W/m²</span><br><br>
+        🌡 Temperature: ${tempC.toFixed(1)} °C | ${tempF.toFixed(1)} °F<br>
+        💧 Humidity: ${humidity.toFixed(0)} %<br>
+        🌬 Pressure: ${pressure.toFixed(0)} hPa | ${pressureMmHg.toFixed(1)} mmHg
+    `;
+}
+
+async function predictAndRedirect() {
+    await predict();
+    const area = document.getElementById("area").value || "Not specified";
+    document.getElementById("finalResult").innerHTML = `
+        📍 Location: ${currentLocation}<br>
+        🏘 Area: ${area}<br><br>
+        ${document.getElementById("result").innerHTML}
+    `;
+    showPage('resultPage');
+}
+</script>
+</body>
+</html>
