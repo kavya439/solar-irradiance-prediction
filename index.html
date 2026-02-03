@@ -82,9 +82,20 @@ button {
     font-size: 15px;
     font-weight: bold;
     cursor: pointer;
-    background: linear-gradient(135deg,#ffeb3b,#ff9800);
-    color: black;
+    background: linear-gradient(135deg, #4E342E 0%, #212121 100%);
+    color: #FFD54F; /* Golden yellow text so it glows against the dark button */
+    border: 1px solid #FFD54F; /* Adds a thin golden rim */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
 }
+
+button:hover {
+    background: linear-gradient(135deg, #5D4037 0%, #333333 100%);
+    color: #FFFFFF;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    transform: translateY(-2px);
+}
+
 
 input, select {
     width: 60%;
@@ -114,16 +125,13 @@ input, select {
 
 
 /* BACKGROUNDS */
-#home { background: linear-gradient(135deg, #ff7e5f, #feb47b); }
-#about { background: linear-gradient(135deg, #667eea, #764ba2); }
-#locations { background: linear-gradient(135deg, #667eea, #764ba2); }
-#predict { background: linear-gradient(135deg, #667eea, #764ba2); }
-#resultPage { background: linear-gradient(135deg, #667eea, #764ba2);}
-
-/* ADDED BACKGROUNDS FOR NEW PAGES */
-#help { background: linear-gradient(135deg, #667eea, #764ba2); }
-#howTo { background: linear-gradient(135deg, #667eea, #764ba2); }
-
+#home { background: #422212; }
+#about { background: #422212; }     
+#locations { background: #422212; }  
+#predict { background: #422212; }    
+#resultPage { background: #422212; } 
+#help { background: #2a1a1a; }
+#howTo { background: #2a1a1a; }
 </style>
 </head>
 
@@ -199,8 +207,11 @@ input, select {
 
 <div class="page" id="howTo">
     <div class="card">
-        <h2>📖 How to Use</h2>
-        <p>1. Select a Location.<br>2. Choose a specific Area.<br>3. Set the Time.<br>4. Click Predict to see the results.</p>
+        <h2>How to Use</h2>
+        <p>1. Select a Location.<br>
+           2. Choose a specific Area.<br>
+           3. Set the Time.<br>
+           4. Click Predict to see the results.</p>
         <button onclick="showPage('home')">⬅ Back</button>
     </div>
 </div>
@@ -347,6 +358,8 @@ async function predict() {
     `;
 }
 
+
+
 async function predictAndRedirect() {
     await predict();
     const area = document.getElementById("area").value || "Not specified";
@@ -357,7 +370,10 @@ async function predictAndRedirect() {
     `;
     showPage('resultPage');
 }
-    async function predictAndRedirect() {
+
+
+
+async function predictAndRedirect() {
     await predict();
     const area = document.getElementById("area").value || "Not specified";
     const hour = parseInt(document.getElementById("time").value.split(":")[0]);
@@ -380,7 +396,7 @@ async function predictAndRedirect() {
 
     document.getElementById("finalResult").innerHTML = `
         <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; margin-bottom: 15px;">
-            <h3 style="color: #ffeb3b; margin-top: 0;">In Short:</h3>
+            <h3 style="color: #ffeb3b; margin-top: 0;">Sunlight Status:</h3>
             <p style="text-align: left; font-size: 16px;">
                 At <b>${document.getElementById("time").value}</b>, the sun will be at <b>${strengthPercent}% strength</b>. 
                 <br><br>
@@ -393,8 +409,6 @@ async function predictAndRedirect() {
     `;
     showPage('resultPage');
 }
-
 </script>
 </body>
-
 </html>
