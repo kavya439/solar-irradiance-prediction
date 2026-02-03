@@ -357,6 +357,44 @@ async function predictAndRedirect() {
     `;
     showPage('resultPage');
 }
+    async function predictAndRedirect() {
+    await predict();
+    const area = document.getElementById("area").value || "Not specified";
+    const hour = parseInt(document.getElementById("time").value.split(":")[0]);
+    
+// 3. Calculate "Sun Strength" percentage correctly 
+    // (We use 1000 W/m² as the maximum reference for 100% strength)
+    let rawResultText = document.querySelector("#result span").innerText;
+    let numericIrradiance = parseFloat(rawResultText); 
+    let strengthPercent = Math.min((numericIrradiance / 1000) * 100,   100).toFixed(0);
+    
+    
+    let energyMessage = "";
+    if (strengthPercent > 70) {
+        energyMessage = "☀️ **High Energy:** Your solar panels will be full of power! Great time for heavy appliances.";
+    } else if (strengthPercent > 30) {
+        energyMessage = "⛅ **Moderate Energy:** Good power generation, but avoid running too many machines at once.";
+    } else {
+        energyMessage = "☁️ **Low Energy:** The sun is weak. Save your battery or use the main grid.";
+    }
+
+    document.getElementById("finalResult").innerHTML = `
+        <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; margin-bottom: 15px;">
+            <h3 style="color: #ffeb3b; margin-top: 0;">In Short:</h3>
+            <p style="text-align: left; font-size: 16px;">
+                At <b>${document.getElementById("time").value}</b>, the sun will be at <b>${strengthPercent}% strength</b>. 
+                <br><br>
+                ${energyMessage}
+            </p>
+        </div>
+        <hr style="width:100%; border: 0.5px solid rgba(255,255,255,0.2);">
+        <p>📍 Location: ${currentLocation} (${area})</p>
+        ${document.getElementById("result").innerHTML}
+    `;
+    showPage('resultPage');
+}
+
 </script>
 </body>
+
 </html>
