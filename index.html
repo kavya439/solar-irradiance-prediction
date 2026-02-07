@@ -374,8 +374,19 @@ async function predictAndRedirect() {
 
 
 async function predictAndRedirect() {
-    await predict();
-    const area = document.getElementById("area").value || "Not specified";
+    // 1. Get the area value
+    const areaSelect = document.getElementById("area");
+    const area = areaSelect.value;
+
+    // 2. Check if the area is empty
+    if (area === "") {
+        alert("Please select an area first!");
+        areaSelect.focus(); // Highlights the dropdown for the user
+        return; // Stops the function here
+    }
+
+    // 3. If area is selected, proceed with the rest of the logic
+    await predict();    
     const hour = parseInt(document.getElementById("time").value.split(":")[0]);
     
 // 3. Calculate "Sun Strength" percentage correctly 
@@ -412,7 +423,3 @@ async function predictAndRedirect() {
 </script>
 </body>
 </html>
-
-
-
-
