@@ -73,7 +73,7 @@ h1, h2 { text-align: center; }
 p { text-align: center; }
 
 button {
-    width: 60%;
+    width: 60vh;
     display: block;
     padding: 12px;
     margin: 12px auto;
@@ -98,7 +98,7 @@ button:hover {
 
 
 input, select {
-    width: 60%;
+    width: 60vh;
     display: block;
     padding: 10px;
     margin: 10px auto;
@@ -403,7 +403,7 @@ async function predictAndRedirect() {
                 ${energyMessage}
             </p>
         </div>
-        <hr style="width:100%; border: 0.5px solid rgba(255,255,255,0.2);">
+        <hr style="width:100vh; border: 0.5px solid rgba(255,255,255,0.2);">
         <p>📍 Location: ${currentLocation} (${area})</p>
         ${document.getElementById("result").innerHTML}
     `;
@@ -412,5 +412,6 @@ async function predictAndRedirect() {
 </script>
 </body>
 </html>
+
 
 
