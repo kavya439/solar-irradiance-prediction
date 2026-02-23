@@ -1,3 +1,5 @@
+*SOLAR IRRADIANCE PREDICTION USING METEOROLOGICAL DATA AND AI MODELS*
+
 Think of Solar Irradiance Prediction as a "Sunlight Forecast." Just like a weather app tells you if it will rain, this tool tells you how "strong" the sunlight will be at a specific time and place.
 
 Why do we need it?
